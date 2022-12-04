@@ -18,8 +18,8 @@ fun main() {
     }
 
     fun part2(input : List<String>) : Int {
-        return input.chunked(3).map { group ->
-            group[0].asIterable().first { group[1].contains(it) && group[2].contains(it) }
+        return input.chunked(3).flatMap { group ->
+            group.map{ it.toSet() }.reduce{ left, right -> left intersect right}
         }.sumOf { determinePriority(it) }
     }
 
