@@ -10,23 +10,21 @@ fun main() {
         }
     }
 
+    infix fun IntRange.contains(other: IntRange): Boolean =
+        contains(other.first) && contains(other.last)
+
+    infix fun IntRange.overlaps(other: IntRange): Boolean =
+        contains(other.first) || contains(other.last) || other.contains(this)
+
     fun part1(input: List<String>): Int {
         return parseInput(input).count { pair ->
-            pair.first.all {
-                pair.second.contains(it)
-            } or pair.second.all {
-                pair.first.contains(it)
-            }
+            pair.first.contains(pair.second) || pair.second.contains(pair.first)
         }
     }
 
     fun part2(input: List<String>): Int {
-        return parseInput(input).count { pair ->
-            pair.first.any {
-                pair.second.contains(it)
-            } or pair.second.any {
-                pair.first.contains(it)
-            }
+         return parseInput(input).count { pair ->
+            pair.first overlaps pair.second
         }
     }
 
