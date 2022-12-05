@@ -1,7 +1,7 @@
 fun main() {
     fun determineRange(range: String): IntRange {
-        val splits = range.split("-").map { it.toInt() }
-        return IntRange(splits[0], splits[1])
+        val (first, last) = range.split("-").map { it.toInt() }
+        return IntRange(first, last)
     }
 
     fun parseInput(input: List<String>): List<Pair<IntRange, IntRange>> {
