@@ -12,8 +12,8 @@ fun main() {
             val c1 = line.subSequence(0, line.length / 2)
             val c2 = line.subSequence((line.length / 2), line.length)
             c1 to c2
-        }.map { pair ->
-            pair.first.asIterable().first { pair.second.contains(it) }
+        }.map { (first, second) ->
+            first.asIterable().first(second::contains)
         }.sumOf { determinePriority(it) }
     }
 

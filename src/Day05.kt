@@ -1,4 +1,6 @@
 typealias Stacks = Array<ArrayDeque<Char>>
+
+val UPPERCASE_LETTERS = "([A-Z])".toRegex()
 fun makeStacks(lines : List<String>) : Stacks {
     var stackLines = lines.takeWhile { it.isNotBlank() }
     val numStacks = stackLines.last().split(" ").last().toInt()
@@ -6,16 +8,11 @@ fun makeStacks(lines : List<String>) : Stacks {
 
     val stacks : Stacks = Array(numStacks) { ArrayDeque(stackLines.size) }
 
+
     stackLines.reversed().forEach{ line ->
-        line
-            .chunked(4)
-            .map {pos ->
-                "([A-Z])".toRegex().find(pos)?.value?.first()
-            }
-            .withIndex()
-            .filter { indexedValue -> indexedValue.value != null }
-            .forEach { indexedValue ->
-                indexedValue.value?.let { ch -> stacks[indexedValue.index].add(ch) }
+        line.chunked(4)
+            .forEachIndexed {i, pos ->
+                UPPERCASE_LETTERS.find(pos)?.value?.first()?.let { ch -> stacks[i].add(ch) }
             }
     }
 

@@ -44,8 +44,8 @@ fun main() {
 
 
 fun getNestedDirs(vararg startDir : ElfDir) : List<ElfDir>{
-    return startDir.flatMap { dir ->
-        val childDirs = dir.getChildDirs()
+    return startDir.flatMap {
+        val childDirs = it.getChildDirs()
         childDirs + getNestedDirs(*childDirs.toTypedArray())
     }
 }
