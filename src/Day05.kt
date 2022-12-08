@@ -13,6 +13,7 @@ fun makeStacks(lines : List<String>) : Stacks {
                 "([A-Z])".toRegex().find(pos)?.value?.first()
             }
             .withIndex()
+            .filter { indexedValue -> indexedValue.value == null }
             .forEach { indexedValue ->
                 indexedValue.value?.let { ch -> stacks[indexedValue.index].add(ch) }
             }
@@ -36,7 +37,7 @@ fun main() {
     val stacksPart2 = makeStacks(inputLines)
 
     val moves = inputLines.mapNotNull(Move::newMove)
-    
+
     // part 1
     moves.forEach {move ->
         repeat(move.numToMove) {
