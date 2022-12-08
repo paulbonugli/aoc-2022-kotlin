@@ -6,14 +6,14 @@ fun makeStacks(lines : List<String>) : Stacks {
 
     val stacks : Stacks = Array(numStacks) { ArrayDeque(stackLines.size) }
 
-    stackLines.reversed().forEach{
-        it
+    stackLines.reversed().forEach{ line ->
+        line
             .chunked(4)
             .map {pos ->
                 "([A-Z])".toRegex().find(pos)?.value?.first()
             }
             .withIndex()
-            .filter { indexedValue -> indexedValue.value == null }
+            .filter { indexedValue -> indexedValue.value != null }
             .forEach { indexedValue ->
                 indexedValue.value?.let { ch -> stacks[indexedValue.index].add(ch) }
             }
